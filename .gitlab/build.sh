@@ -8,6 +8,7 @@ export SCRAM_ARCH=${SCRAM_ARCHITECTURE}
 cmsrel ${CMSSW_RELEASE}
 cd ${CMSSW_RELEASE}/src
 cmsenv
+
 git cms-init
 git cms-merge-topic -u friti:TransientTracks
 git cms-merge-topic -u friti:KinParticleVtxFitter
