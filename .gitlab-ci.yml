@@ -3,8 +3,8 @@ stages:
 
 cmssw_compile:
   stage: build
-  only:
-    - gitlab-ci-build
+  #only:
+  #  - gitlab-ci-build
   tags:
     - cvmfs
   variables:
