@@ -3,6 +3,7 @@ stages:
   - build
     
 greeting:
+  stage: greeting
   script: "echo hello world"
 
 cmssw_compile:
