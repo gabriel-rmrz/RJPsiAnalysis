@@ -12,5 +12,5 @@ cmssw_compile:
     CMSSW_RELEASE: CMSSW_10_6_14
     SCRAM_ARCHITECTURE: slc7_amd64_gcc700
   script:
-    - echo hi
-    - /bin/bash ./.gitlab/build.sh
+    - echo hello
+    #- /bin/bash ./.gitlab/build.sh
