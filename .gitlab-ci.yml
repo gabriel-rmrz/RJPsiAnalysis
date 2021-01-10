@@ -1,5 +1,5 @@
 hello world:
-  script:
+  script: "echo hello world"
 stages:
   - build
 cmssw_compile:
