@@ -1,6 +1,10 @@
 stages:
+  - greetings
   - build
     
+greeting:
+  script: "echo hello world"
+
 cmssw_compile:
   stage: build
   only:
