@@ -1,9 +1,11 @@
 from FWCore.ParameterSet.VarParsing import VarParsing
 import FWCore.ParameterSet.Config as cms
+#from BcToJPsiMuMu_2021_files import files
+#from HbToJPsiMuMu_2021_files import files
 
 options = VarParsing('python')
 
-options.register('isMC', False,
+options.register('isMC', True,
     VarParsing.multiplicity.singleton,
     VarParsing.varType.bool,
     "Run this on real data"
@@ -30,8 +32,9 @@ options.register('skip',0,
     "skip first N events"
 )
 
-options.setDefault('maxEvents',-1)
+options.setDefault('maxEvents',1000)
 options.setDefault('tag', '10614')
+#options.setDefault('tag', '2021Feb09')
 options.parseArguments()
 
 #globaltag = '102X_dataRun2_v11' if not options.isMC else '102X_upgrade2018_realistic_v15'
@@ -43,18 +46,17 @@ if options._beenSet['globalTag']:
 
 extension = {False : 'data', True : 'mc'}
 outputFileNANO = cms.untracked.string('_'.join(['RJPsi', extension[options.isMC], options.tag])+'.root')
+#outputFileNANO = cms.untracked.string('_'.join(['RJPsi_BcToJPsiMuMu_25Feb2021_500k_fastjet', extension[options.isMC], options.tag])+'.root')
+#outputFileNANO = cms.untracked.string('_'.join(['RJPsi_HbToJPsiMuMu_25Feb2021_500k_fastjet', extension[options.isMC], options.tag])+'.root')
 
 #input files (it can be a list of files)
 if not options.inputFiles:
-    options.inputFiles = ['root://cms-xrd-global.cern.ch//store/data/Run2018A/MuOnia/MINIAOD/12Nov2019_UL2018-v1/00000/25488B57-0B57-FC45-BB7A-73A77F21C820.root'] if not options.isMC else \
-                         ['root://cms-xrd-global.cern.ch//store/mc/RunIISummer19UL18MiniAOD/BcToJPsiTauNu_TuneCP5_13TeV-bcvegpy2-pythia8-evtgen/MINIAODSIM/106X_upgrade2018_realistic_v11_L1v1_ext1-v2/100000/02F13381-1D94-CC43-948A-2EFFB8572949.root']
-    #options.inputFiles = ['root://cmsxrootd.fnal.gov//store/data/Run2018D/Charmonium/MINIAOD/12Nov2019_UL2018-v1/280000/7CF419AF-FE82-EC4F-AD8E-8EDF73A54549.root'] if not options.isMC else \
-    #options.inputFiles = ['root://cms-xrd-global.cern.ch//store/data/Run2018D/Charmonium/MINIAOD/12Nov2019_UL2018-v1/00000/00AC5CFC-5390-F947-911B-2074A7DFF23D.root'] if not options.isMC else \
-    #options.inputFiles = ['root://cmsxrootd.fnal.gov//store/data/Run2018D/Charmonium/MINIAOD/12Nov2019_UL2018-v1/120000/3D4F26E7-5686-2141-A0BC-41C47223357F.root'] if not options.isMC else \
-                         #['file:RJpsi-BcToXToJpsiMuMuSelected-RunIISummer19UL18MiniAOD_0.root']
-                         #["root://cms-xrd-global.cern.ch//store/user/manzoni/RJPsi_Bc_PMX_HLT_RECO_MINI_28oct20_v5/RJpsi-BcToXToJpsiMuMuSelected-RunIISummer19UL18MiniAOD_1000.root"]
-                         #['root://cms-xrd-global.cern.ch//store/user/manzoni/RJPsi_Bc_PMX_HLT_RECO_MINI_28oct20_v5/RJpsi-BcToXToJpsiMuMuSelected-RunIISummer19UL18MiniAOD_1000.root']
-
+    options.inputFiles = ['root://cmsxrootd.fnal.gov//store/data/Run2018D/Charmonium/MINIAOD/12Nov2019_UL2018-v1/120000/3D4F26E7-5686-2141-A0BC-41C47223357F.root'] if not options.isMC else \
+                         ["root://cms-xrd-global.cern.ch//store/mc/RunIISummer20UL18MiniAOD/HbToJPsiMuMu_TuneCP5_13TeV-pythia8-evtgen/MINIAODSIM/106X_upgrade2018_realistic_v11_L1v1-v1/00000/014EC954-4C5E-AD48-BB44-401D779323E3.root"] #Hb jpsi+X sample
+#["root://cms-xrd-global.cern.ch//store/user/manzoni/RJPsi_Bc_PMX_HLT_RECO_MINI_28oct20_v5/RJpsi-BcToXToJpsiMuMuSelected-RunIISummer19UL18MiniAOD_1000.root"]
+#                         ['root://cms-xrd-global.cern.ch//store/mc/RunIIAutumn18MiniAOD/OniaAndX_ToMuMu_MuFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/MINIAODSIM/102X_upgrade2018_realistic_v15-v1/00000/01325465-A815-E24E-ABB3-DAB8D4880BDE.root']
+#                         ['file:RJpsi-BcToXToJpsiMuMuSelected-RunIISummer19UL18MiniAOD_0.root']
+                         
 
 #what's the purpose of this 
 annotation = '%s nevts:%d' % (outputFileNANO, options.maxEvents)
